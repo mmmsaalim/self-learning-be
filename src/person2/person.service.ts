@@ -15,8 +15,12 @@ export class PersonService {
     return this.personRepository.save(newPerson);
   }
 
-  findAll() {
-    return `This action returns all person`;
+  findAll(): Promise<Person[]> {
+    return this.personRepository.find({
+      order: {
+        id: 'DESC',
+      },
+    });
   }
 
   findOne(id: number) {

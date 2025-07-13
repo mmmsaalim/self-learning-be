@@ -14,6 +14,6 @@ export class Person {
   @Column()
   address: string;
 
-  @Column({ nullable: true })
+  @Column()
   phone_no: string;
 }

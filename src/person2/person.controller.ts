@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { PersonService } from './person.service';
 import { CreatePersonDto } from './dto/create-person.dto';
 import { UpdatePersonDto } from './dto/update-person.dto';
+import { Person } from './entities/person.entity';
 
 @Controller('person')
 export class PersonController {
@@ -13,7 +14,7 @@ export class PersonController {
   }
 
   @Get()
-  findAll() {
+  findAll() : Promise<Person[]> {
     return this.personService.findAll();
   }
 
