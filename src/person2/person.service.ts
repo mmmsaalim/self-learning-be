@@ -17,12 +17,15 @@ export class PersonService {
     return this.personRepository.save(newPerson);
   }
 
-  findAll(): Promise<Person[]> {
-    return this.personRepository.find({
+async  findAll(page: number, size: number): Promise<{data:Person[]; total: number}> {
+    const [data,  total] = await this.personRepository.findAndCount({
       order: {
         id: 'DESC',
       },
+      skip:page*size,
+      take: size,
     });
+    return {data, total}
   }
 
  async findOne(id: number): Promise<Person> {

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete,Query } from '@nestjs/common';
 import { PersonService } from './person.service';
 import { CreatePersonDto } from './dto/create-person.dto';
 import { UpdatePersonDto } from './dto/update-person.dto';
@@ -14,8 +14,11 @@ export class PersonController {
   }
 
   @Get()
-  findAll() : Promise<Person[]> {
-    return this.personService.findAll();
+  findAll(
+    @Query('page') page: string = '0',
+    @Query('size') size: string = '5',
+  ) : Promise<{data: Person[]; total: number}> {
+    return this.personService.findAll(+page, +size);
   }
 
   @Get(':id')
